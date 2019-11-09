@@ -17,7 +17,28 @@
 
 
 function EventedThing () {
-  this._listen = {};
+  var result = {};
+  Object.assign(result, eventedMethods);
+  return result;
+
 }
+
+var eventedMethods = {
+  on: function (type, callback) {
+    // console.log(this.on);
+    this.on[type] = callback(name);
+  },
+  trigger: function (type, value) {
+    this.on[type](value);
+  }
+};
+
+// EventedThing.prototype.on = function (name, callback) {
+//   this.on[name] = callback(name);
+// }
+// EventedThing.prototype.trigger = function (type, value) {
+//   this.on[type] (value);
+// }
+
 
 module.exports = new EventedThing;
