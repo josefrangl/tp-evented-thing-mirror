@@ -26,7 +26,9 @@ function EventedThing () {
 var eventedMethods = {
   on: function (type, callback) {
     // console.log(this.on);
-    this.on[type] = callback(name);
+    this.on[type] = function (name) {
+      callback(name);
+    };
   },
   trigger: function (type, value) {
     this.on[type](value);
