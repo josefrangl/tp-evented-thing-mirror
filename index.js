@@ -26,12 +26,16 @@ function EventedThing () {
 var eventedMethods = {
   on: function (type, callback) {
     // console.log(this.on);
-    this.on[type] = function (name) {
-      callback(name);
+    this.on[type] = function () {
+      callback(...arguments);
     };
   },
-  trigger: function (type, value) {
-    this.on[type](value);
+  trigger: function (type) {
+    let extraArg = [];
+    for (let i = 1; i < arguments.length; i++) {
+      extraArg.push(arguments[i]);
+    }
+    if (this.on.hasOwnProperty(type)) { this.on[type](...extraArg); } 
   }
 };
 
