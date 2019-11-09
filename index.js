@@ -9,7 +9,7 @@
 // });
 //
 // eventedThing.trigger('meet', 'Sarah');
-// -> 'Hi there!'
+// -> 'Hi there!' 
 // -> 'Nice to meet you, Sarah.'
 //
 // eventedThing.trigger('whatever');
@@ -20,31 +20,17 @@ function EventedThing () {
   var result = {};
   Object.assign(result, eventedMethods);
   return result;
-
 }
 
 var eventedMethods = {
   on: function (type, callback) {
-    // console.log(this.on);
     this.on[type] = function () {
       callback(...arguments);
     };
   },
-  trigger: function (type) {
-    let extraArg = [];
-    for (let i = 1; i < arguments.length; i++) {
-      extraArg.push(arguments[i]);
-    }
-    if (this.on.hasOwnProperty(type)) { this.on[type](...extraArg); } 
+  trigger: function (type, ...args) {
+    if ( this.on.hasOwnProperty(type) ) { this.on[type](...args); } 
   }
 };
-
-// EventedThing.prototype.on = function (name, callback) {
-//   this.on[name] = callback(name);
-// }
-// EventedThing.prototype.trigger = function (type, value) {
-//   this.on[type] (value);
-// }
-
 
 module.exports = new EventedThing;
